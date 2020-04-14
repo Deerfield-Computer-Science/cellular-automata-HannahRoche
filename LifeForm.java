@@ -9,14 +9,16 @@ public abstract class LifeForm {
 	protected Color myColor;
 	protected int myAge;
 	protected boolean alive;
+	protected int survivalNum;
 	
 	// lifeform constructors
-	public LifeForm(int myLifeSpan, Location myLocation, Color myColor, World myWorld) {
+	public LifeForm(int myLifeSpan, Location myLocation, Color myColor, World myWorld, int startingSurvival) {
 		super();
 		this.myLifeSpan = myLifeSpan;
 		this.myLocation = myLocation;
 		this.myColor = myColor;
 		this.myWorld = myWorld;
+		this.survivalNum = startingSurvival;
 		alive = true;
 	}
 	
@@ -27,10 +29,7 @@ public abstract class LifeForm {
 		alive = true;
 	}
 	
-	/* all the basic lifeform functions
-	 * 		getOlder
-	 * 		reproduce
-	 */
+
 	
 	// we all age the same, time clicks forward and we all age one unit of time
 	public void age(int time){
@@ -78,6 +77,17 @@ public abstract class LifeForm {
 	public void setAge(int age) {
 		this.myAge = age;
 	}
+	
+	public int getSurvivalNum() {
+		return survivalNum;
+	}
+
+	public void setSurvivalNum(int survivalNum) {
+		this.survivalNum = survivalNum;
+	}
+	
+	
+	
 	
 	@Override
 	public String toString() {
