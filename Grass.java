@@ -11,12 +11,17 @@ public class Grass extends Plant {
 		// this is silly code really, but as an example
 		int newX = (int)(Math.random()*20);
 		int newY = (int)(Math.random()*20); 
-		
 		myWorld.getCreatureList().add(new Grass(new Location(newX,newY), myWorld));
 	}
 
 	@Override
 	public void move() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void eat() {
 		// TODO Auto-generated method stub
 		
 	}

@@ -29,7 +29,8 @@ public abstract class LifeForm {
 		alive = true;
 	}
 	
-
+	public abstract void eat();
+	
 	
 	// we all age the same, time clicks forward and we all age one unit of time
 	public void age(int time){
@@ -40,6 +41,8 @@ public abstract class LifeForm {
 	
 	// to be alive you have to be able to reproduce....
 	public abstract void reproduce();
+	
+	
 	
 	public boolean isDead(){
 		return !alive;

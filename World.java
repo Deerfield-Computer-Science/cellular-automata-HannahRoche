@@ -16,10 +16,18 @@ public class World {
 	public void letTimePass(){
 		
 		makeNewCreatures();
-		creatureList.get(2).move();
+		//creatureList.get(2).move();
 		//eatThings();
+		creatureList.get(2).eat();
 		//creaturesGetOlder();
-		//purgeTheDead();		
+		purgeTheDead();		
+	}
+	
+	public void eatThings() {
+		for(int i=0; i<creatureList.size();i++) {
+			creatureList.get(i).eat();
+			
+		}
 	}
 	
 	public void makeNewCreatures() {
