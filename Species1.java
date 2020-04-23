@@ -33,16 +33,15 @@ public class Species1 extends Animal {
 
 	// returns one creature surrounding if there is one, and will return null if there are none
 	public LifeForm neighboringSpecies() {
-		int numAnimals =0;
 		for(int x=-1; x< 2; x++) {
 			for (int y= -1; y<2;y++) {
 				Location neighboringSqr = new Location(getMyLocation().getX()+x, getMyLocation().getY() +y);
 				for(int j=0; j< myWorld.getCreatureList().size();j++) {
-					LifeForm test = myWorld.getCreatureList().get(j);
-					if(test.getMyLocation()== neighboringSqr) {
-						numAnimals++;
-						if (numAnimals >1) {
-							return test;
+					LifeForm creature = myWorld.getCreatureList().get(j);
+					if(creature.getMyLocation()== neighboringSqr) {
+						System.out.println("check");
+						if (creature.getMyLocation().equals(getMyLocation())==false) {
+							return creature;
 						}
 					}
 				}
@@ -70,19 +69,12 @@ public class Species1 extends Animal {
 
 	@Override
 	public void eat() {
-		Location location = getMyLocation();
-		World world = myWorld;
-		if(neighboringSpecies() != null) {
-			if (neighboringSpecies() instanceof Species1 == false) {
-				neighboringSpecies().alive=false;
+			if (neighboringSpecies() instanceof Grass) {
+				neighboringSpecies().isDead();
+				survivalNum++;
 			}
 		}
-		survivalNum++;
-		myLifeSpan++;
-		
-		
-	}
-		
+	
 }
 
 
