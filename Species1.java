@@ -35,11 +35,10 @@ public class Species1 extends Animal {
 	public LifeForm neighboringSpecies() {
 		for(int x=-1; x< 2; x++) {
 			for (int y= -1; y<2;y++) {
-				Location neighboringSqr = new Location(getMyLocation().getX()+x, getMyLocation().getY() +y);
+				Location neighboringSqr = new Location(getMyLocation().getX()+x, getMyLocation().getY()+y);
 				for(int j=0; j< myWorld.getCreatureList().size();j++) {
 					LifeForm creature = myWorld.getCreatureList().get(j);
-					if(creature.getMyLocation()== neighboringSqr) {
-						System.out.println("check");
+					if(creature.getMyLocation().equals(neighboringSqr)) {
 						if (creature.getMyLocation().equals(getMyLocation())==false) {
 							return creature;
 						}
@@ -52,9 +51,10 @@ public class Species1 extends Animal {
 		
 	}
 
-	@Override
-	public void runAway() {
+
 		
+	@Override
+	public void runAway() {	
 		
 	}
 
@@ -67,14 +67,13 @@ public class Species1 extends Animal {
 		
 	}
 
-	@Override
+
 	public void eat() {
-			if (neighboringSpecies() instanceof Grass) {
-				neighboringSpecies().isDead();
-				survivalNum++;
-			}
+		if (neighboringSpecies() instanceof Grass) {
+			neighboringSpecies().alive =false;
+			survivalNum++;
 		}
-	
+	}
 }
 
 
