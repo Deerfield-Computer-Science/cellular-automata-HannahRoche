@@ -8,10 +8,16 @@ public class Grass extends Plant {
 	}
 	
 	public void reproduce() {
-		// this is silly code really, but as an example
-		int newX = (int)(Math.random()*20);
-		int newY = (int)(Math.random()*20); 
-		myWorld.getCreatureList().add(new Grass(new Location(newX,newY), myWorld));
+		int newX = myLocation.getX()+1;
+		int newY = myLocation.getY(); 
+		if (myWorld.locIsFilled(new Location(newX, newY))==false) {
+			myWorld.getCreatureList().add(new Grass(new Location(newX,newY), myWorld));
+		}
+		newX= newX-1;
+		newY= newY+1;
+		if (myWorld.locIsFilled(new Location(newX, newY))==false) {
+			myWorld.getCreatureList().add(new Grass(new Location(newX,newY), myWorld));		
+		}
 	}
 
 	@Override
@@ -22,7 +28,11 @@ public class Grass extends Plant {
 
 	@Override
 	public void eat() {
-		// TODO Auto-generated method stub
+		if (myWorld.getisSunny()) {
+			survivalNum++;
+		} else {
+			survivalNum--;
+		}
 		
 	}
 

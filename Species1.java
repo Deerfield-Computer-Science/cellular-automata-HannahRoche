@@ -17,7 +17,6 @@ public class Species1 extends Animal {
 		super(loc, w);
 		myLifeSpan= 6;
 		myColor = Color.BLUE;
-		
 	}
 
 	@Override
@@ -32,7 +31,8 @@ public class Species1 extends Animal {
 	}
 
 	// returns one creature surrounding if there is one, and will return null if there are none
-	public LifeForm neighboringSpecies() {
+	public int inAPack() {
+		int packNum =0;
 		for(int x=-1; x< 2; x++) {
 			for (int y= -1; y<2;y++) {
 				Location neighboringSqr = new Location(getMyLocation().getX()+x, getMyLocation().getY()+y);
@@ -40,15 +40,16 @@ public class Species1 extends Animal {
 					LifeForm creature = myWorld.getCreatureList().get(j);
 					if(creature.getMyLocation().equals(neighboringSqr)) {
 						if (creature.getMyLocation().equals(getMyLocation())==false) {
-							return creature;
+							if(creature instanceof Species1) {
+								packNum++;
+							}
 						}
 					}
 				}
 			}
 			
 		}
-		return null;
-		
+		return packNum;	
 	}
 
 
@@ -64,14 +65,25 @@ public class Species1 extends Animal {
 			Location myLoc = getMyLocation();
 			myWorld.getCreatureList().add(new Species1(new Location(myLoc.getX()+1,myLoc.getY()+1), myWorld));
 		}
-		
 	}
 
 
 	public void eat() {
-		if (neighboringSpecies() instanceof Grass) {
-			neighboringSpecies().alive =false;
-			survivalNum++;
+		for(int x=-1; x< 2; x++) {
+			for (int y= -1; y<2;y++) {
+				Location neighboringSqr = new Location(getMyLocation().getX()+x, getMyLocation().getY()+y);
+				for(int j=0; j< myWorld.getCreatureList().size();j++) {
+					LifeForm creature = myWorld.getCreatureList().get(j);
+					if(creature.getMyLocation().equals(neighboringSqr)) {
+						if (creature.getMyLocation().equals(getMyLocation())==false) {
+							if(creature instanceof Grass) {
+								creature.alive =false;
+								survivalNum++;
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 }
