@@ -1,19 +1,16 @@
 import java.awt.Color;
 
 import acm.util.RandomGenerator;
-
-
-
-
-public class Species1 extends Animal {
-	
+//Minor changes from Species2 are listed below
+public class Species3 extends Animal {
 	private RandomGenerator rgen = RandomGenerator.getInstance();
 
-	public Species1(Location loc, World w) {
+	public Species3(Location loc, World w) {
 		super(loc, w);
-		myLifeSpan= 6;
-		myColor = Color.BLUE;
-		survivalNum = 5;
+		myLifeSpan = 9;
+		myColor = Color.BLACK;
+		survivalNum =5;
+		
 	}
 
 	@Override
@@ -27,19 +24,25 @@ public class Species1 extends Animal {
 			setMyLocation(previous);
 		}
 		
-		
+	}
+
+	@Override
+	public void runAway() {
 	}
 
 	@Override
 	public void reproduce() {
 		if (survivalNum>5) {
-			Location myLoc = getMyLocation();
-			if(myWorld.locIsFilled(new Location(myLoc.getX()+1,myLoc.getY()+1))==false) {
-				myWorld.getCreatureList().add(new Species1(new Location(myLoc.getX()+1,myLoc.getY()+1), myWorld));
+			Location newLoc = new Location(myLocation.getX()+1,myLocation.getY()+1);
+			if(myWorld.locIsFilled(newLoc) ==false) {
+				myWorld.getCreatureList().add(new Species3(newLoc, myWorld));
+				survivalNum-=2;
 			}
 		}
+		
 	}
 
+	@Override
 	public void eat() {
 		for(int x=-1; x< 2; x++) {
 			for (int y= -1; y<2;y++) {
@@ -48,7 +51,7 @@ public class Species1 extends Animal {
 					LifeForm creature = myWorld.getCreatureList().get(j);
 					if(creature.getMyLocation().equals(neighboringSqr)) {
 						if (creature.getMyLocation().equals(getMyLocation())==false) {
-							if(creature instanceof Grass) {
+							if(creature instanceof Species2) {
 								creature.alive =false;
 								survivalNum++;
 							}
@@ -58,13 +61,5 @@ public class Species1 extends Animal {
 			}
 		}
 	}
-
-	@Override
-	public void runAway() {
-		// TODO Auto-generated method stub
 		
-	}
-
 }
-
-

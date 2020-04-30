@@ -1,22 +1,23 @@
 import java.util.ArrayList;
+import acm.util.RandomGenerator;
+
+
 
 public class Grass extends Plant {
+
+	private RandomGenerator rgen = RandomGenerator.getInstance();	
 	
 	public Grass(Location l, World w) {
 		super(l,w);
 		myLifeSpan = 3;
+		survivalNum =4;
 	}
 	
 	public void reproduce() {
-		int newX = myLocation.getX()+1;
-		int newY = myLocation.getY(); 
+		int newX = myLocation.getX()+rgen.nextInt(-1,1);
+		int newY = myLocation.getY()+rgen.nextInt(-1,1); 
 		if (myWorld.locIsFilled(new Location(newX, newY))==false) {
 			myWorld.getCreatureList().add(new Grass(new Location(newX,newY), myWorld));
-		}
-		newX= newX-1;
-		newY= newY+1;
-		if (myWorld.locIsFilled(new Location(newX, newY))==false) {
-			myWorld.getCreatureList().add(new Grass(new Location(newX,newY), myWorld));		
 		}
 	}
 
@@ -31,7 +32,7 @@ public class Grass extends Plant {
 		if (myWorld.getisSunny()) {
 			survivalNum++;
 		} else {
-			survivalNum--;
+			survivalNum-=2;
 		}
 		
 	}

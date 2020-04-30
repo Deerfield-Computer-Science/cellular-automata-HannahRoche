@@ -1,11 +1,12 @@
 import java.awt.Color;
-
+import acm.util.RandomGenerator;
 import acm.graphics.*;
 import acm.program.*;
 import acm.util.*;
 
 public class WorldController extends GraphicsProgram {
 	
+	private RandomGenerator rgen = RandomGenerator.getInstance();
 	private World theWorld;
 	private GCanvas theWorldCanvas;
 	public static final int APPLICATION_WIDTH = 200;
@@ -22,20 +23,30 @@ public class WorldController extends GraphicsProgram {
 	
 	public void setUpWorld(){
 		theWorld = new World(20,20);
-		theWorld.getCreatureList().add( new Grass( new Location(3,6), theWorld ));
-		theWorld.getCreatureList().add( new Grass( new Location(4,6), theWorld ));
-		theWorld.getCreatureList().add(new Species1(new Location(4,7), theWorld));
+		addCreatures();
 		theWorldCanvas = this.getGCanvas();
 	}
 	
 	public void runWorld(){
 		drawWorld();
-		for(int i=0; i<1;i++){
+		for(int i=0; i<10;i++){
 			theWorld.letTimePass();
-			pause(1000);
+			pause(500);
 			drawWorld();
 		}
 	}	
+	
+	public void addCreatures() {
+		for (int i=0; i<3; i++) {
+			theWorld.getCreatureList().add(new Grass( new Location(rgen.nextInt(0, theWorld.getWidth()),rgen.nextInt(0, theWorld.getHeight())), theWorld ));
+			theWorld.getCreatureList().add(new Species1(new Location(rgen.nextInt(0, theWorld.getWidth()),rgen.nextInt(0, theWorld.getHeight())), theWorld));
+			theWorld.getCreatureList().add(new Species2(new Location(rgen.nextInt(0, theWorld.getWidth()),rgen.nextInt(0, theWorld.getHeight())), theWorld));
+			theWorld.getCreatureList().add(new Species3(new Location(rgen.nextInt(0, theWorld.getWidth()),rgen.nextInt(0, theWorld.getHeight())), theWorld));
+		}
+
+		theWorld.getCreatureList().add(new Grass( new Location(rgen.nextInt(0, theWorld.getWidth()),rgen.nextInt(0, theWorld.getHeight())), theWorld ));
+		theWorld.getCreatureList().add(new Grass( new Location(rgen.nextInt(0, theWorld.getWidth()),rgen.nextInt(0, theWorld.getHeight())), theWorld ));
+		}
 	
 	public void drawWorld(){
 		drawBlankWorld();

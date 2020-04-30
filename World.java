@@ -25,8 +25,8 @@ public class World {
 	public void letTimePass(){
 		makeNewCreatures();
 		eatThings();
-		//creatureList.get(2).move();
-		//creaturesGetOlder();
+		creaturesMove();
+		creaturesGetOlder();
 		purgeTheDead();		
 	}
 	
@@ -46,13 +46,22 @@ public class World {
 		}
 	}
 	
+	public void creaturesMove() {
+		for(int i=0; i<creatureList.size();i++) {
+			creatureList.get(i).move();
+		}
+	}
+	
 	public void purgeTheDead(){
 		int i=0;
 		while(i<creatureList.size()){
 			if(creatureList.get(i).isDead())
 				creatureList.remove(i);
-			else
+			else if (creatureList.get(i).survivalNum==0) {
+				creatureList.remove(i);
+			} else {
 				i++;
+			}
 		}	
 	}
 	
@@ -68,8 +77,14 @@ public class World {
 				return true;
 			}
 		}
+		if (loc1.getX()>getWidth()) {
+			return true;
+		} else if (loc1.getY()>getHeight()) {
+			return true;
+		}
 		return false;
 	}
+
 	
 	public int getWidth() {
 		return width;
